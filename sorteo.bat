@@ -1,2 +1,2 @@
-python.exe ".\script_sorteo.py"
+python.exe ".\src\script_sorteo.py"
 PAUSE
