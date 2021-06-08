@@ -40,11 +40,9 @@ if __name__ == "__main__":
                         help="Agregar un participante")
     parser.add_argument("-d", "--drop", type=str, default="", metavar="\"Nombre Apellido\"",
                         help="Borrar un participante")
-    parser.add_argument("--version", type=bool, help="show version and exit")
+    parser.add_argument("--version", action='version', version="0.06.2021.CristianC",
+                        default=False, help="show version and exit")
     opt = parser.parse_args()
-
-    if opt.version:
-        print('Version : 0.06.2021.CristianC')
 
     logger = logging.getLogger('SorTa2')
 
@@ -80,8 +78,6 @@ if __name__ == "__main__":
     # random.shuffle(names)
     # names.insert(0, win)
 
-
-    print(data['Times_being_host'], winner)
     # Save and show results
     data['Last_host'] = winner
     data['Times_being_host'][winner] += 1
@@ -89,3 +85,4 @@ if __name__ == "__main__":
     pretty_print(f'Ganador: "{winner}"')
 
     save_data(data, os.path.join(CUR_DIR, "data", "sorteo.json"))
+    exit(0)
