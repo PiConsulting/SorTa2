@@ -6,6 +6,7 @@ import logging
 
 
 def pretty_print(*args):
+    print('\n')
     print("*"*60)
     print(*args, sep='')
     print("*" * 60)
@@ -52,7 +53,7 @@ if __name__ == "__main__":
     last_host = data.get('Last_host', "")
     times_being_host = data.get('Times_being_host', {})
 
-    if last_host and times_being_host:
+    if not(last_host and times_being_host):
         logger.warning("There aren't participants")
 
     # Add / drop participants
@@ -63,10 +64,10 @@ if __name__ == "__main__":
 
     names = list(times_being_host.keys())
     times = list(times_being_host.values())
-    probs = list(map(lambda x: 1 if int(max(times)-x) == 0 else max(times)-x,
+    probs = list(map(lambda x: 1 if int(min(times)-x) == 0 else 0,
                      times))
 
-    pretty_print('Participantes: \n\t', '\n\t'.join(names))
+    #pretty_print('Participantes: \n\t', '\n\t'.join(names))
 
     # Perform lottery
     winner = lottery(names)
@@ -74,15 +75,17 @@ if __name__ == "__main__":
     # #---------------------
     # #Shuffle the rest of participants, and add the host at the beginning
     # #---------------------
-    # names.remove(win)
-    # random.shuffle(names)
-    # names.insert(0, win)
+    names.remove(winner)
+    random.shuffle(names)
+    names.insert(0, winner)
 
     # Save and show results
     data['Last_host'] = winner
     data['Times_being_host'][winner] += 1
 
     pretty_print(f'Ganador: "{winner}"')
+
+    pretty_print('Order: \n\t', '\n\t'.join(names))
 
     save_data(data, os.path.join(CUR_DIR, "data", "sorteo.json"))
     exit(0)
