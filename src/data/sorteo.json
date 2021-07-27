@@ -1,11 +1,12 @@
 {
-    "Last_host": "Caro",
+    "Last_host": "Franche",
     "Times_being_host": {
         "Meli": 1,
         "Santi": 1,
-        "Cris": 0,
+        "Cris": 1,
         "Ivan": 1,
         "Chiqui": 1,
-        "Caro": 1
+        "Caro": 1,
+        "Franche": 1
     }
 }
